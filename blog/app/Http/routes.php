@@ -28,6 +28,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
     Route::any('tab', 'IndexController@tab');
     Route::any('img', 'IndexController@img');
     Route::any('pass', 'IndexController@modifyPassword');
-
+    
     Route::get('logout', 'LoginController@logout');
+
+    Route::resource('category', 'CategoryController');
 });

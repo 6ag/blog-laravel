@@ -1,6 +1,6 @@
 <?php
 
-class Code{
+class Code {
 
 	//资源
 	private $img;

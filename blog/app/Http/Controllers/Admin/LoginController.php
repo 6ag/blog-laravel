@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 
+// 有些命令需要注释这行代码
 include_once('org/code/Code.class.php');
 
 class LoginController extends CommonController
