@@ -32,4 +32,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
     Route::get('logout', 'LoginController@logout');
 
     Route::resource('category', 'CategoryController');
+    Route::post('category/changeorder', 'CategoryController@changeorder');
+
 });

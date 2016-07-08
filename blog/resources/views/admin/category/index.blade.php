@@ -33,17 +33,17 @@
 <!--搜索结果页面 列表 开始-->
 <form action="#" method="post">
     {{csrf_field()}}
-    {{--<div class="result_wrap">--}}
-    {{--<!--快捷导航 开始-->--}}
-    {{--<div class="result_content">--}}
-    {{--<div class="short_wrap">--}}
-    {{--<a href="#"><i class="fa fa-plus"></i>新增文章</a>--}}
+    <div class="result_wrap">
+    <!--快捷导航 开始-->
+    <div class="result_content">
+    <div class="short_wrap">
+    <a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>新增分类</a>
     {{--<a href="#"><i class="fa fa-recycle"></i>批量删除</a>--}}
     {{--<a href="#"><i class="fa fa-refresh"></i>更新排序</a>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<!--快捷导航 结束-->--}}
-    {{--</div>--}}
+    </div>
+    </div>
+    <!--快捷导航 结束-->
+    </div>
 
     <div class="result_wrap">
         <div class="result_content">
@@ -52,7 +52,7 @@
                     <th class="tc" width="5%"><input type="checkbox" name=""></th>
                     <th class="tc" width="5%">排序</th>
                     <th class="tc" width="5%">ID</th>
-                    <th class="tc" width="10%">分类名称</th>
+                    <th class="tc" width="12%">分类名称</th>
                     <th class="tc">标题</th>
                     <th class="tc" width="5%">查看次数</th>
                     <th class="tc" width="10%">操作</th>
@@ -61,26 +61,16 @@
                 @foreach($data as $v)
                     <tr>
                         <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
-                        <td class="tc">
-                            <input type="text" name="ord[]" value="0">
-                        </td>
+                        <td class="tc"><input type="text" onchange="orderDidChangeValue(this, {{$v->cate_id}});" name="ord[]" value="{{$v->cate_order}}"></td>
                         <td class="tc">{{$v->cate_id}}</td>
-                        <td class="tc">
-                            <a href="#">{{$v->cate_name}}</a>
-                        </td>
+                        <td class="tc"><a href="#">{{$v->_cate_name}}</a></td>
                         <td class="tc">{{$v->cate_title}}</td>
                         <td class="tc">{{$v->cate_view}}</td>
-
-                        <td class="tc">
-                            <a href="#">修改</a>
-                            <a href="#">删除</a>
-                        </td>
+                        <td class="tc"><a href="#">修改</a><a href="#">删除</a></td>
                     </tr>
-
                 @endforeach
 
             </table>
-
 
             <div class="page_nav">
                 <div>
@@ -97,10 +87,22 @@
                 </div>
             </div>
 
-
         </div>
     </div>
 </form>
 <!--搜索结果页面 列表 结束-->
+
+<script>
+    function orderDidChangeValue(obj, cate_id) {
+        var cate_order = $(obj).val();
+        $.post("{{url('admin/category/changeorder')}}", {'_token' : '{{csrf_token()}}', 'cate_order' : cate_order, 'cate_id' : cate_id}, function(data) {
+            if (data.status == 1) {
+                layer.msg(data.msg, {icon: 6});
+            } else {
+                layer.msg(data.msg, {icon: 5});
+            }
+        });
+    }
+</script>
 
 @endsection
