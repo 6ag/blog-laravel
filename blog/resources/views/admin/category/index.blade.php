@@ -66,7 +66,7 @@
                         <td class="tc"><a href="#">{{$v->_cate_name}}</a></td>
                         <td class="tc">{{$v->cate_title}}</td>
                         <td class="tc">{{$v->cate_view}}</td>
-                        <td class="tc"><a href="#">修改</a><a href="#">删除</a></td>
+                        <td class="tc"><a href="{{url('admin/category/' . $v->cate_id . '/edit')}}">修改</a><a href="#">删除</a></td>
                     </tr>
                 @endforeach
 

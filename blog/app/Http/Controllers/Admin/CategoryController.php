@@ -60,15 +60,24 @@ class CategoryController extends CommonController
     }
 
     // put admin/category/{category} 更新分类
-    public function update()
+    public function update($cate_id)
     {
+        $input = Input::except('_token', '_method');
+        $result = Category::where('cate_id', $cate_id)->update($input);
+        if ($result) {
+            return redirect('admin/category');
+        } else {
+            return back()->with('errors', '更新分类失败');
+        }
 
     }
 
     // get admin/category/{category}/edit 编辑分类
-    public function edit()
+    public function edit($cate_id)
     {
-
+        $cate = Category::find($cate_id);
+        $data = Category::where('cate_pid', 0)->get();
+        return view('admin/category/edit', compact('cate', 'data'));
     }
 
     // delete admin/category/{category} 删除分类
