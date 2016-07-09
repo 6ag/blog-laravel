@@ -36,4 +36,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
 
     Route::resource('article', 'ArticleController');
 
+    Route::any('upload', 'CommonController@upload');
+
 });

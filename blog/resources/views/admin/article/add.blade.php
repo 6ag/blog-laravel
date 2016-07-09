@@ -64,9 +64,40 @@
                 </td>
             </tr>
             <tr>
-                <th>缩略图：</th>
+                <th rowspan="2">缩略图：</th>
                 <td>
-                    <input type="text" class="lg" name="art_thumb">
+                    <input type="text" size="50" name="art_thumb">
+                    <input id="file_upload" name="file_upload" type="file" multiple="true">
+                    <script src="{{url('org/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
+                    <link rel="stylesheet" type="text/css" href="{{url('org/uploadify/uploadify.css')}}">
+                    <script type="text/javascript">
+                        <?php $timestamp = time();?>
+                        $(function() {
+                            $('#file_upload').uploadify({
+                                'buttonText' : '图片上传',
+                                'formData'     : {
+                                    'timestamp' : '<?php echo $timestamp;?>',
+                                    '_token'     : '{{csrf_token()}}'
+                                },
+                                'swf'      : '{{asset('org/uploadify/uploadify.swf')}}',
+                                'uploader' : '{{url('admin/upload')}}',
+                                'onUploadSuccess' : function(file, data, response) {
+                                    $('input[name=art_thumb]').val(data);
+                                    $('#art_thumb_img').attr('src','/'+data);
+                                }
+                            });
+                        });
+                    </script>
+                    <style>
+                        .uploadify{display:inline-block;}
+                        .uploadify-button{border:none; border-radius:5px; margin-top:8px;}
+                        table.add_tab tr td span.uploadify-button-text{color: #FFF; margin:0;}
+                    </style>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="" alt="" id="art_thumb_img" style="max-width: 300px; max-height: 200px;">
                 </td>
             </tr>
             <tr>
@@ -94,7 +125,7 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="2">文章内容：</th>
+                <th rowspan="2"><i class="require">*</i>文章内容：</th>
                 <td>
                     <style>
                         .edui-default{line-height: 28px;}
