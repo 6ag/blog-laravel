@@ -30,20 +30,23 @@
 {{--</div>--}}
 {{--<!--结果页快捷搜索框 结束-->--}}
 
+<div class="result_wrap">
+    <div class="result_title">
+        <h3>分类管理</h3>
+    </div>
+    <!--快捷导航 开始-->
+    <div class="result_content">
+        <div class="short_wrap">
+            <a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>添加分类</a>
+            <a href="{{url('admin/category')}}"><i class="fa fa-recycle"></i>全部分类</a>
+        </div>
+    </div>
+    <!--快捷导航 结束-->
+</div>
+
 <!--搜索结果页面 列表 开始-->
 <form action="#" method="post">
     {{csrf_field()}}
-    <div class="result_wrap">
-    <!--快捷导航 开始-->
-    <div class="result_content">
-    <div class="short_wrap">
-    <a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>新增分类</a>
-    {{--<a href="#"><i class="fa fa-recycle"></i>批量删除</a>--}}
-    {{--<a href="#"><i class="fa fa-refresh"></i>更新排序</a>--}}
-    </div>
-    </div>
-    <!--快捷导航 结束-->
-    </div>
 
     <div class="result_wrap">
         <div class="result_content">
@@ -66,26 +69,11 @@
                         <td class="tc"><a href="#">{{$v->_cate_name}}</a></td>
                         <td class="tc">{{$v->cate_title}}</td>
                         <td class="tc">{{$v->cate_view}}</td>
-                        <td class="tc"><a href="{{url('admin/category/' . $v->cate_id . '/edit')}}">修改</a><a href="#">删除</a></td>
+                        <td class="tc"><a href="{{url('admin/category/' . $v->cate_id . '/edit')}}">修改</a><a href="javascript:;" onclick="deleteCate({{$v->cate_id}})">删除</a></td>
                     </tr>
                 @endforeach
 
             </table>
-
-            <div class="page_nav">
-                <div>
-                    <a class="first" href="/wysls/index.php/Admin/Tag/index/p/1.html">第一页</a>
-                    <a class="prev" href="/wysls/index.php/Admin/Tag/index/p/7.html">上一页</a>
-                    <a class="num" href="/wysls/index.php/Admin/Tag/index/p/6.html">6</a>
-                    <a class="num" href="/wysls/index.php/Admin/Tag/index/p/7.html">7</a>
-                    <span class="current">8</span>
-                    <a class="num" href="/wysls/index.php/Admin/Tag/index/p/9.html">9</a>
-                    <a class="num" href="/wysls/index.php/Admin/Tag/index/p/10.html">10</a>
-                    <a class="next" href="/wysls/index.php/Admin/Tag/index/p/9.html">下一页</a>
-                    <a class="end" href="/wysls/index.php/Admin/Tag/index/p/11.html">最后一页</a>
-                    <span class="rows">{{count($data)}} 条记录</span>
-                </div>
-            </div>
 
         </div>
     </div>
@@ -101,6 +89,24 @@
             } else {
                 layer.msg(data.msg, {icon: 5});
             }
+        });
+    }
+
+    function deleteCate(cate_id) {
+        //询问框
+        layer.confirm('您确定要删除这个分类吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post("{{url('admin/category')}}/" + cate_id, {'_token' : '{{csrf_token()}}', '_method' : 'delete'}, function(data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {icon: 6});
+                } else {
+                    layer.msg(data.msg, {icon: 5});
+                }
+                window.location.reload();
+            });
+        }, function(){
+
         });
     }
 </script>

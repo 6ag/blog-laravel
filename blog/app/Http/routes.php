@@ -34,4 +34,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
     Route::resource('category', 'CategoryController');
     Route::post('category/changeorder', 'CategoryController@changeorder');
 
+    Route::resource('article', 'ArticleController');
+
 });
