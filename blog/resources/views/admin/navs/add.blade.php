@@ -4,7 +4,7 @@
 
         <!--面包屑导航 开始-->
 <div class="crumb_warp">
-    <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 添加分类
+    <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 添加导航栏
 </div>
 <!--面包屑导航 结束-->
 
@@ -12,7 +12,7 @@
     <div class="result_title">
         <h3>分类管理</h3>
         {{--错误提示信息--}}
-        @if(is_object($errors) && count($errors) > 0)
+        @if(is_array($errors) && count($errors) > 0)
             <div class="mark">
                 @foreach($errors->all() as $error)
                     <p>{{$error}}</p>
@@ -28,8 +28,8 @@
     <!--快捷导航 开始-->
     <div class="result_content">
         <div class="short_wrap">
-            <a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>添加分类</a>
-            <a href="{{url('admin/category')}}"><i class="fa fa-recycle"></i>全部分类</a>
+            <a href="{{url('admin/navs/create')}}"><i class="fa fa-plus"></i>添加导航栏</a>
+            <a href="{{url('admin/navs')}}"><i class="fa fa-recycle"></i>全部导航栏</a>
         </div>
 
     </div>
@@ -37,55 +37,37 @@
 </div>
 
 <div class="result_wrap">
-    <form action="{{url('admin/category')}}" method="post">
+    <form action="{{url('admin/navs')}}" method="post">
         {{csrf_field()}}
         <table class="add_tab">
             <tbody>
+
             <tr>
-                <th width="120"><i class="require">*</i>父级分类：</th>
+                <th><i class="require">*</i>名称：</th>
                 <td>
-                    <select name="cate_pid">
-                        <option value="0">==顶级分类==</option>
-                        @foreach($data as $v)
-                            <option value="{{$v->cate_id}}">{{$v->cate_name}}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="nav_name" placeholder="中文名称"> <input type="text" name="nav_en" placeholder="英文名称">
+                    <span><i class="fa fa-exclamation-circle yellow"></i>导航名称为必填项</span>
                 </td>
             </tr>
 
             <tr>
-                <th><i class="require">*</i>分类名称：</th>
+                <th><i class="require">*</i>URL：</th>
                 <td>
-                    <input type="text" name="cate_name">
-                    <span><i class="fa fa-exclamation-circle yellow"></i>分类名称为必填项</span>
-                </td>
-            </tr>
-
-            <tr>
-                <th>分类标题：</th>
-                <td>
-                    <input type="text" class="lg" name="cate_title">
-                </td>
-            </tr>
-
-            <tr>
-                <th>关键词：</th>
-                <td>
-                    <input type="text" class="lg" name="cate_keywords">
+                    <input type="text" class="lg" name="nav_url" placeholder="导航栏连接">
                 </td>
             </tr>
 
             <tr>
                 <th>描述：</th>
                 <td>
-                    <textarea name="cate_description"></textarea>
+                    <textarea name="nav_title" placeholder="导航栏描述不会显示到前台"></textarea>
                 </td>
             </tr>
 
             <tr>
                 <th>排序：</th>
                 <td>
-                    <input type="text" class="sm" name="cate_order">
+                    <input type="text" class="sm" name="nav_order" placeholder="导航栏排序">
                 </td>
             </tr>
 

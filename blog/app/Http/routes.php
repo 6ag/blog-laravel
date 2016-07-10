@@ -38,4 +38,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
 
     Route::any('upload', 'CommonController@upload');
 
+    Route::resource('links', 'LinksController');
+    Route::post('links/changeorder', 'LinksController@changeorder');
+
+    Route::resource('navs', 'NavsController');
+    Route::post('navs/changeorder', 'NavsController@changeorder');
+
+    Route::resource('config', 'ConfigController');
+    Route::post('config/changeorder', 'ConfigController@changeorder');
+    Route::get('config/changecontent', 'ConfigController@changecontent');
+
 });

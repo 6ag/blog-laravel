@@ -48,8 +48,8 @@ class CategoryController extends CommonController
             }
         } else {
 //            不知道这里为啥传过去没值
-//            return back()->withErrors($validator);
-            return back()->with('errors', '分类名称不能为空');
+            return back()->withErrors($validator);
+//            return back()->with('errors', '分类名称不能为空');
         }
     }
 
