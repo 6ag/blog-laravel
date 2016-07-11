@@ -53,6 +53,9 @@ class IndexController extends CommonController
         $article['pre'] = Article::where('art_id', '<', $art_id)->orderBy('art_id','desc')->first();
         $article['next'] = Article::where('art_id', '>', $art_id)->orderBy('art_id','asc')->first();
 
+//        $article['pre'] = Article::where('art_id', '<', $art_id)->max('art_id');
+//        $article['next'] = Article::where('art_id', '>', $art_id)->min('art_id');
+
         // 相关文章
         $data = Article::where('cate_id',$field->cate_id)->orderBy('art_id','desc')->take(6)->get();
 

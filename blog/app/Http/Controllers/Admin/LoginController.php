@@ -8,8 +8,8 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 
-// 有些命令需要注释这行代码
-include_once(base_path('public/org/code/Code.class.php'));
+// 验证码类
+require_once base_path('public/org/code/Code.class.php');
 
 class LoginController extends CommonController
 {
@@ -27,7 +27,7 @@ class LoginController extends CommonController
             }
 
             session(['user' => $user]);
-            return redirect('admin.index');
+            return redirect()->route('admin');
         }
         return view('admin.login', ['title' => '登录界面']);
     }
@@ -41,6 +41,6 @@ class LoginController extends CommonController
     public function logout()
     {
         session(['user' => null]);
-        return redirect('admin/login');
+        return redirect()->route('admin.login');
     }
 }

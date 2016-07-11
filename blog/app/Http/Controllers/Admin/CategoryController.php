@@ -42,14 +42,12 @@ class CategoryController extends CommonController
         if ($validator->passes()) {
             $result = Category::create($input);
             if ($result) {
-                return redirect('admin/category');
+                return redirect()->route('admin.category.index');
             } else {
                 return back()->with('errors', '添加分类失败');
             }
         } else {
-//            不知道这里为啥传过去没值
             return back()->withErrors($validator);
-//            return back()->with('errors', '分类名称不能为空');
         }
     }
 
@@ -65,7 +63,7 @@ class CategoryController extends CommonController
         $input = Input::except('_token', '_method');
         $result = Category::where('cate_id', $cate_id)->update($input);
         if ($result) {
-            return redirect('admin/category');
+            return redirect()->route('admin.category.index');
         } else {
             return back()->with('errors', '更新分类失败');
         }
@@ -77,7 +75,7 @@ class CategoryController extends CommonController
     {
         $cate = Category::find($cate_id);
         $data = Category::where('cate_pid', 0)->get();
-        return view('admin/category/edit', compact('cate', 'data'));
+        return view('admin.category.edit', compact('cate', 'data'));
     }
 
     // delete admin/category/{category} 删除分类

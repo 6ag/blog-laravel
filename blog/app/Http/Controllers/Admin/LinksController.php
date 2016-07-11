@@ -49,7 +49,7 @@ class LinksController extends CommonController
         if ($validator->passes()) {
             $result = Links::create($input);
             if ($result) {
-                return redirect('admin/links');
+                return redirect()->route('admin.links.index');
             } else {
                 return back()->with('errors', '添加友情链接失败');
             }
@@ -72,7 +72,7 @@ class LinksController extends CommonController
         $input = Input::except('_token', '_method');
         $result = Links::where('link_id', $link_id)->update($input);
         if ($result) {
-            return redirect('admin/links');
+            return redirect()->route('admin.links.index');
         } else {
             return back()->with('errors', '更新友情链接失败');
         }

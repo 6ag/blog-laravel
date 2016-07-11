@@ -38,16 +38,14 @@ class ArticleController extends CommonController
         ];
         $message = [
             'art_title.required' => '文章标题不能为空',
-            'art_newstext' => '文章内容不能为空',
+            'art_newstext.required' => '文章内容不能为空',
         ];
         $validator = Validator::make($input, $rules, $message);
         if ($validator->passes()) {
             Article::create($input);
-            return redirect('admin/article');
+            return redirect()->route('admin.article.index');
         } else {
-            // 有问题,返回数据不能接收到
-//            return back()->withErrors($validator);
-            return back()->with('errors', '必填项不能为空');
+            return back()->withErrors($validator);
         }
     }
 
@@ -63,7 +61,7 @@ class ArticleController extends CommonController
         $input = Input::except('_token', '_method');
         $result = Article::where('art_id', $art_id)->update($input);
         if ($result) {
-            return redirect('admin/article');
+            return redirect()->route('admin.article.index');
         } else {
             return back()->with('errors', '文章更新失败,请稍后重试');
         }
@@ -74,7 +72,7 @@ class ArticleController extends CommonController
     {
         $data = (new Category)->tree();
         $article = Article::find($art_id);
-        return view('admin/article/edit', compact('data', 'article'));
+        return view('admin.article.edit', compact('data', 'article'));
     }
 
     // delete admin/article/{article} 删除文章

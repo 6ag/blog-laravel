@@ -11,58 +11,66 @@
 |
 */
 
-// 登录
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
-    // 验证码
-    Route::get('code', 'LoginController@code');
-
-    // 登录
-    Route::any('login', 'LoginController@login');
-});
-
 // 后台
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin.login']], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 
-    // 后台首页
-    Route::get('index', 'IndexController@index');
+    // 无需登录session验证
+    Route::group([], function() {
+        // 登录
+        Route::any('login', ['as' => 'admin.login', 'uses' => 'LoginController@login']);
 
-    // 网站基本信息
-    Route::get('info', 'IndexController@info');
+        // 验证码
+        Route::get('code', ['as' => 'admin.code', 'uses' => 'LoginController@code']);
+    });
 
-    // 退出登录
-    Route::get('logout', 'LoginController@logout');
+    // 需要登录session验证
+    Route::group(['middleware' => ['admin.login']], function() {
+        // 后台首页
+        Route::get('index', ['as' => 'admin.index', 'uses' => 'IndexController@index']);
 
-    // 修改密码
-    Route::any('pass', 'IndexController@modifyPassword');
+        // 网站基本信息
+        Route::get('info', ['as' => 'admin.info', 'uses' => 'IndexController@info']);
 
-    // 分类管理
-    Route::resource('category', 'CategoryController');
-    Route::post('category/changeorder', 'CategoryController@changeorder');
+        // 修改密码
+        Route::any('pass', ['as' => 'admin.pass', 'uses' => 'IndexController@modifyPassword']);
 
-    // 文章管理
-    Route::resource('article', 'ArticleController');
+        // 退出登录
+        Route::get('logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
 
-    // 上传图片
-    Route::any('upload', 'CommonController@upload');
+        // 分类管理
+        Route::resource('category', 'CategoryController');
+        Route::post('category/changeorder', ['as' => 'admin.category.changeorder', 'uses' => 'CategoryController@changeorder']);
 
-    // 友情链接
-    Route::resource('links', 'LinksController');
-    Route::post('links/changeorder', 'LinksController@changeorder');
+        // 文章管理
+        Route::resource('article', 'ArticleController');
 
-    // 导航栏
-    Route::resource('navs', 'NavsController');
-    Route::post('navs/changeorder', 'NavsController@changeorder');
+        // 上传图片
+        Route::any('upload', ['as' => 'admin.upload', 'uses' => 'CommonController@upload']);
 
-    // 网站配置
-    Route::resource('config', 'ConfigController');
-    Route::post('config/changeorder', 'ConfigController@changeorder');
-    Route::post('config/changecontent', 'ConfigController@changecontent');
+        // 友情链接
+        Route::resource('links', 'LinksController');
+        Route::post('links/changeorder', ['as' => 'admin.links.changeorder', 'uses' => 'LinksController@changeorder']);
 
+        // 导航栏
+        Route::resource('navs', 'NavsController');
+        Route::post('navs/changeorder', ['as' => 'admin.navs.changeorder', 'uses' => 'NavsController@changeorder']);
+
+        // 网站配置
+        Route::resource('config', 'ConfigController');
+        Route::post('config/changeorder', ['as' => 'admin.config.changeorder', 'uses' => 'ConfigController@changeorder']);
+        Route::post('config/changecontent', ['as' => 'admin.config.changecontent', 'uses' => 'ConfigController@changecontent']);
+    });
 });
 
 // 前台
 Route::group(['namespace' => 'Home'], function() {
-    Route::get('/', 'IndexController@index');
-    Route::get('cate/{cate_id}', 'IndexController@cate');
-    Route::get('news/{art_id}', 'IndexController@article');
+
+    // 首页
+    Route::get('/', ['as' => 'home.index', 'uses' => 'IndexController@index']);
+
+    // 分类列表
+    Route::get('cate/{cate_id}', ['as' => 'home.cate', 'uses' => 'IndexController@cate']);
+
+    // 内容页
+    Route::get('news/{art_id}', ['as' => 'home.news', 'uses' => 'IndexController@article']);
 });

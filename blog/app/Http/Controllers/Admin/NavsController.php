@@ -49,7 +49,7 @@ class NavsController extends CommonController
         if ($validator->passes()) {
             $result = Navs::create($input);
             if ($result) {
-                return redirect('admin/navs');
+                return redirect()->route('admin.navs.index');
             } else {
                 return back()->with('errors', '添加导航失败');
             }
@@ -72,7 +72,7 @@ class NavsController extends CommonController
         $input = Input::except('_token', '_method');
         $result = Navs::where('nav_id', $nav_id)->update($input);
         if ($result) {
-            return redirect('admin/navs');
+            return redirect()->route('admin.navs.index');
         } else {
             return back()->with('errors', '更新导航失败');
         }

@@ -76,7 +76,7 @@ class ConfigController extends CommonController
         if ($validator->passes()) {
             $result = Config::create($input);
             if ($result) {
-                return redirect('admin/config');
+                return redirect()->route('admin.config.index');
             } else {
                 return back()->with('errors', '添加配置项失败');
             }
@@ -100,7 +100,7 @@ class ConfigController extends CommonController
         $result = Config::where('conf_id', $conf_id)->update($input);
         if ($result) {
             $this->putFile();
-            return redirect('admin/config');
+            return redirect()->route('admin.config.index');
         } else {
             return back()->with('errors', '更新配置项失败');
         }
