@@ -9,7 +9,7 @@
 @section('content')
     <article class="blogs">
         <h1 class="t_nav">
-            <span>“慢生活”不是懒惰，放慢速度不是拖延时间，而是让我们在生活中寻找到平衡。</span>
+            <span>{{$field->cate_title}}</span>
             <a href="{{url('/')}}" class="n1">网站首页</a>
             <a href="{{url('cate/' . $field->cate_id)}}" class="n2">{{$field->cate_name}}</a>
         </h1>

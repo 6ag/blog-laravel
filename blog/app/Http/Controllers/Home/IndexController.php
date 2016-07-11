@@ -36,12 +36,14 @@ class IndexController extends CommonController
         // 当前分类的子分类
         $submenu = Category::where('cate_pid', $cate_id)->get();
 
+        // 当前分类
         $field = Category::find($cate_id);
         return view('home.list',compact('field', 'data', 'submenu'));
     }
 
     public function article($art_id)
     {
+        // 当前文章
         $field = Article::Join('category', 'article.cate_id', '=', 'category.cate_id')->where('art_id', $art_id)->first();
 
         // 查看次数自增
