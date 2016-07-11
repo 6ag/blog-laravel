@@ -40,7 +40,7 @@
 
                 @foreach($data as $v)
                     <tr>
-                        <td class="tc"><input type="text" onchange="orderDidChangeValue(this, {{$v->nav_id}});" name="ord[]" value="{{$v->nav_order}}"></td>
+                        <td class="tc"><input type="text" onchange="orderDidChangeValue(this, '{{$v->nav_id}}');" name="ord[]" value="{{$v->nav_order}}"></td>
                         <td class="tc">{{$v->nav_id}}</td>
                         <td class="tc"><a href="#">{{$v->nav_name}}</a></td>
                         <td class="tc">{{$v->nav_url}}</td>

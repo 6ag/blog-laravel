@@ -51,7 +51,7 @@
 
                 @foreach($data as $v)
                     <tr>
-                        <td class="tc"><input type="text" onchange="orderDidChangeValue(this, {{$v->conf_id}});" value="{{$v->conf_order}}"></td>
+                        <td class="tc"><input type="text" onchange="orderDidChangeValue(this, '{{$v->conf_id}}');" value="{{$v->conf_order}}"></td>
                         <td class="tc">{{$v->conf_id}}</td>
                         <td class="tc"><a href="#">{{$v->conf_title}}</a></td>
                         <td class="tc">{{$v->conf_name}}</td>

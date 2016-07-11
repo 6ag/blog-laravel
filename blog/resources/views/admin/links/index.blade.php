@@ -42,7 +42,7 @@
                 @foreach($data as $v)
                     <tr>
                         <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
-                        <td class="tc"><input type="text" onchange="orderDidChangeValue(this, {{$v->link_id}});" name="ord[]" value="{{$v->link_order}}"></td>
+                        <td class="tc"><input type="text" onchange="orderDidChangeValue(this, '{{$v->link_id}}');" name="ord[]" value="{{$v->link_order}}"></td>
                         <td class="tc">{{$v->link_id}}</td>
                         <td class="tc"><a href="#">{{$v->link_name}}</a></td>
                         <td class="tc">{{$v->link_url}}</td>
