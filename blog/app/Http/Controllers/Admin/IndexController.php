@@ -22,26 +22,6 @@ class IndexController extends CommonController
         return view('admin.info');
     }
 
-    public function add()
-    {
-        return view('admin.add');
-    }
-
-    public function articleList()
-    {
-        return view('admin.list');
-    }
-
-    public function tab()
-    {
-        return view('admin.tab');
-    }
-
-    public function img()
-    {
-        return view('admin.img');
-    }
-
     public function modifyPassword()
     {
         if ($input = Input::all()) {

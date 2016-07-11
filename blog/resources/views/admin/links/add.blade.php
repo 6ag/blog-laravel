@@ -13,7 +13,7 @@
         <h3>分类管理</h3>
         {{--错误提示信息--}}
 
-        @if(is_array($errors) && count($errors) > 0)
+        @if(is_object($errors) && count($errors) > 0)
             <div class="mark">
                 @foreach($errors->all() as $error)
                     <p>{{$error}}</p>

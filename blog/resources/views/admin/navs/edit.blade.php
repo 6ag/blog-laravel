@@ -12,7 +12,7 @@
     <div class="result_title">
         <h3>分类管理</h3>
         {{--错误提示信息--}}
-        @if(is_array($errors) && count($errors) > 0)
+        @if(is_object($errors) && count($errors) > 0)
             <div class="mark">
                 @foreach($errors->all() as $error)
                     <p>{{$error}}</p>
@@ -44,9 +44,9 @@
             <tbody>
 
             <tr>
-                <th><i class="require">*</i>分类名称：</th>
+                <th><i class="require">*</i>名称：</th>
                 <td>
-                    <input type="text" name="nav_name" value="{{$nav->nav_name}}">
+                    <input type="text" name="nav_name" placeholder="中文名称" value="{{$nav->nav_name}}"> <input type="text" name="nav_en" placeholder="英文名称" value="{{$nav->nav_en}}">
                     <span><i class="fa fa-exclamation-circle yellow"></i>导航名称为必填项</span>
                 </td>
             </tr>

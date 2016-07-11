@@ -27,7 +27,7 @@ class ConfigController extends CommonController
         foreach ($data as $k => $v) {
             switch ($v->field_type) {
                 case 'input':
-                    $data[$k]['conf_html'] = '<input type="text" class="lg" name="conf_content[]" value="'.$v->conf_content.'">';
+                    $data[$k]['conf_html'] = '<input type="text" class="lg" name="conf_content[]" value="'. $v->conf_content .'">';
                     break;
                 case 'textarea':
                     $data[$k]['conf_html'] = '<textarea class="lg" name="conf_content[]">'.$v->conf_content.'</textarea>';
@@ -37,8 +37,12 @@ class ConfigController extends CommonController
                     $html = '';
                     foreach ($arr as $kk => $vv) {
                         $array = explode('|', $vv); // 值 名称
-                        $checked = $v->conf_content == $array[0] ? 'checked' : '';
-                        $html .= '<input type="radio" id="id' . $array[0] .'" name="conf_content[]" value="' . $array[0] .'" ' . $checked .' >' . '<label for="id' . $array[0] .'"> ' . $array[1] .'</label>';
+                        if (!empty($v->conf_content)) {
+                            $checked = $v->conf_content == $array[0] ? 'checked' : '';
+                        } else {
+                            $checked = $kk == 0 ? 'checked' : '';
+                        }
+                        $html .= '<input class="lg" type="radio" id="id' . $array[0] .'" name="conf_content[]" value="' . $array[0] .'" ' . $checked .' >' . '<label for="id' . $array[0] .'"> ' . $array[1] .'</label>';
                     }
                     $data[$k]['conf_html'] = $html;
                     break;
@@ -123,22 +127,24 @@ class ConfigController extends CommonController
         return $data;
     }
 
+    // 修改网站配置内容
     public function changeContent()
     {
         $input = Input::all();
-        foreach($input['conf_id'] as $k=>$v){
-            Config::where('conf_id',$v)->update(['conf_content'=>$input['conf_content'][$k]]);
+        foreach($input['conf_id'] as $k => $v){
+            Config::where('conf_id',$v)->update(['conf_content' => $input['conf_content'][$k]]);
         }
         $this->putFile();
         return back()->with('errors','配置项更新成功！');
     }
 
+    // 将网站配置信息写入配置文件
     public function putFile()
     {
         $config = Config::pluck('conf_content','conf_name')->all();
         $path = base_path('config/web.php');
-        $str = '<?php return '.var_export($config,true).';';
-        file_put_contents($path,$str);
+        $str = '<?php return '.var_export($config, true).';';
+        file_put_contents($path, $str);
     }
 
     // 排序改变

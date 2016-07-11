@@ -30,7 +30,6 @@
         <div class="result_content">
             <table class="list_tab">
                 <tr>
-                    <th class="tc" width="5%"><input type="checkbox" name=""></th>
                     <th class="tc" width="5%">排序</th>
                     <th class="tc" width="5%">ID</th>
                     <th class="tc" width="12%">名称</th>
@@ -41,7 +40,6 @@
 
                 @foreach($data as $v)
                     <tr>
-                        <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
                         <td class="tc"><input type="text" onchange="orderDidChangeValue(this, {{$v->nav_id}});" name="ord[]" value="{{$v->nav_order}}"></td>
                         <td class="tc">{{$v->nav_id}}</td>
                         <td class="tc"><a href="#">{{$v->nav_name}}</a></td>

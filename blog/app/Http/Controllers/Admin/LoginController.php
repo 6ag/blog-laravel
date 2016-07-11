@@ -27,7 +27,7 @@ class LoginController extends CommonController
             }
 
             session(['user' => $user]);
-            return redirect('admin/index');
+            return redirect('admin.index');
         }
         return view('admin.login', ['title' => '登录界面']);
     }

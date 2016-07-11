@@ -35,10 +35,9 @@
 </div>
 
 <!--搜索结果页面 列表 开始-->
-
 <div class="result_wrap">
     <div class="result_content">
-        <form action="{{url('admin/config/changecontent')}}" method="get">
+        <form action="{{url('admin/config/changecontent')}}" method="post">
             {{csrf_field()}}
             <table class="list_tab">
                 <tr>
