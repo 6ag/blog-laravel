@@ -24,7 +24,7 @@
     </h3>
     <ul class="rank">
         @foreach($new as $n)
-        <li><a href="{{ url('news', $n->art_id) }}" title="{{ $n->art_title }}" target="_blank">{{ $n->art_title }}</a></li>
+        <li><a href="{{ url('article', $n->art_id) }}" title="{{ $n->art_title }}" target="_blank">{{ $n->art_title }}</a></li>
         @endforeach
     </ul>
     <h3 class="ph">
@@ -32,7 +32,7 @@
     </h3>
     <ul class="paih">
         @foreach($hot as $h)
-        <li><a href="{{ url('news', $h->art_id) }}" title="{{ $h->art_title }}" target="_blank">{{ $h->art_title }}</a></li>
+        <li><a href="{{ url('article', $h->art_id) }}" title="{{ $h->art_title }}" target="_blank">{{ $h->art_title }}</a></li>
         @endforeach
     </ul>
 @show

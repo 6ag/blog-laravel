@@ -24,7 +24,7 @@
             </h3>
             <ul>
                 @foreach($pics as $pic)
-                    <li><a href="{{ url('news', $pic->art_id) }}"  target="_blank"><img src="{{ url($pic->art_thumb) }}"></a><span>{{ $pic->art_title }}</span></li>
+                    <li><a href="{{ url('article', $pic->art_id) }}"  target="_blank"><img src="{{ url($pic->art_thumb) }}"></a><span>{{ $pic->art_title }}</span></li>
                 @endforeach
             </ul>
         </div>
@@ -35,11 +35,11 @@
         </h2>
         <div class="bloglist left">
             @foreach($data as $d)
-                <a href="{{ url('news', $d->art_id) }}"><h3>{{ $d->art_title }}</h3></a>
+                <a href="{{ url('article', $d->art_id) }}"><h3>{{ $d->art_title }}</h3></a>
                 <figure><img src="{{ url($d->art_thumb) }}"></figure>
                 <ul>
                     <p>{{ $d->art_smalltext }}...</p>
-                    <a title="{{ $d->art_title }}" href="{{ url('news', $d->art_id) }}" target="_blank" class="readmore">阅读全文>></a>
+                    <a title="{{ $d->art_title }}" href="{{ url('article', $d->art_id) }}" target="_blank" class="readmore">阅读全文>></a>
                 </ul>
                 <p class="dateview"><span>{{ date('Y-m-d', $d->art_time) }}</span><span>作者：{{ $d->art_editor }}</span></p>
             @endforeach

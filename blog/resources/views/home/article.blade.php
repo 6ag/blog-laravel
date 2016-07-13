@@ -28,14 +28,14 @@
             </div>
             <div class="ad"> </div>
             <div class="nextinfo">
-                <p>上一篇：<a href="{{ is_null($article['pre']) ? "#" : url('news/'.$article['pre']->art_id) }}">{{ is_null($article['pre']) ? "没有上一篇了" : $article['pre']->art_title }}</a></p>
-                <p>下一篇：<a href="{{ is_null($article['next']) ? "#" : url('news/'.$article['next']->art_id) }}">{{ is_null($article['next']) ? "没有下一篇了" : $article['next']->art_title }}</a></p>
+                <p>上一篇：<a href="{{ is_null($article['pre']) ? "#" : url('article', $article['pre']->art_id) }}">{{ is_null($article['pre']) ? "没有上一篇了" : $article['pre']->art_title }}</a></p>
+                <p>下一篇：<a href="{{ is_null($article['next']) ? "#" : url('article', $article['next']->art_id) }}">{{ is_null($article['next']) ? "没有下一篇了" : $article['next']->art_title }}</a></p>
             </div>
             <div class="otherlink">
                 <h2>相关文章</h2>
                 <ul>
                     @foreach($data as $d)
-                        <li><a href="{{ url('news/'.$d->art_id) }}" title="{{ $d->art_title }}">{{ $d->art_title }}</a></li>
+                        <li><a href="{{ url('article', $d->art_id) }}" title="{{ $d->art_title }}">{{ $d->art_title }}</a></li>
                     @endforeach
                 </ul>
             </div>

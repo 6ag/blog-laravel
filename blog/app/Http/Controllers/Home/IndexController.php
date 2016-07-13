@@ -4,13 +4,30 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Model\Article;
 use App\Http\Model\Category;
+use App\Http\Model\Navs;
 use App\Http\Model\Links;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\View;
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
-class IndexController extends CommonController
+class IndexController extends Controller
 {
+    public function __construct()
+    {
+        // 导航
+        $navs = Navs::all();
+        View::share('navs',$navs);
+
+        // 最新发布文章8篇
+        $new = Article::orderBy('art_time', 'desc')->take(8)->get();
+        View::share('new',$new);
+
+        // 点击量最高的6篇文章
+        $hot = Article::orderBy('art_view', 'desc')->take(5)->get();
+        View::share('hot',$hot);
+    }
+    
     public function index()
     {
         // 站长推荐 6篇浏览量最高的
@@ -25,7 +42,7 @@ class IndexController extends CommonController
         return view('home.index', compact('pics', 'data', 'links'));
     }
 
-    public function cate($cate_id)
+    public function showCategoryList($cate_id)
     {
         // 图文列表4篇（带分页）
         $data = Article::where('cate_id', $cate_id)->orderBy('art_time', 'desc')->paginate(4);
@@ -41,7 +58,7 @@ class IndexController extends CommonController
         return view('home.list',compact('field', 'data', 'submenu'));
     }
 
-    public function article($art_id)
+    public function showArticleDetail($art_id)
     {
         // 当前文章
         $field = Article::Join('category', 'article.cate_id', '=', 'category.cate_id')->where('art_id', $art_id)->first();
@@ -58,7 +75,9 @@ class IndexController extends CommonController
 
         // 相关文章
         $data = Article::where('cate_id',$field->cate_id)->orderBy('art_id','desc')->take(6)->get();
-        
-        return view('home.news', compact('field', 'article', 'data'));
+
+//        return view('home.news', ['field' => $field, 'article' => $article, 'data' => $data]);
+        // compact 生成一个关联数组
+        return view('home.article', compact('field', 'article', 'data'));
     }
 }

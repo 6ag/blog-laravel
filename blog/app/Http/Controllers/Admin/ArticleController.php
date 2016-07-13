@@ -20,7 +20,13 @@ class ArticleController extends CommonController
         return view('admin.article.index', compact('data'));
     }
 
-    // get admin/article/create 添加文章
+    // get admin/article/{article} 显示单个文章信息
+    public function show()
+    {
+
+    }
+
+    // get admin/article/create 添加文章 create、store是连续的操作,create获取创建前需要的数据,store存储数据
     public function create()
     {
         $data = (new Category)->tree();
@@ -49,10 +55,12 @@ class ArticleController extends CommonController
         }
     }
 
-    // get admin/article/{article} 显示单个文章信息
-    public function show()
+    // get admin/article/{article}/edit 编辑文章 edit、update也是一组连续的操作,edit获取需要编辑的数据的信息,update更新修改后的信息
+    public function edit($art_id)
     {
-
+        $data = (new Category)->tree();
+        $article = Article::find($art_id);
+        return view('admin.article.edit', compact('data', 'article'));
     }
 
     // put admin/article/{article} 更新文章
@@ -65,14 +73,6 @@ class ArticleController extends CommonController
         } else {
             return back()->with('errors', '文章更新失败,请稍后重试');
         }
-    }
-
-    // get admin/article/{article}/edit 编辑文章
-    public function edit($art_id)
-    {
-        $data = (new Category)->tree();
-        $article = Article::find($art_id);
-        return view('admin.article.edit', compact('data', 'article'));
     }
 
     // delete admin/article/{article} 删除文章

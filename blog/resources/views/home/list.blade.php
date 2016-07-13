@@ -11,16 +11,16 @@
         <h1 class="t_nav">
             <span>{{ $field->cate_title }}</span>
             <a href="{{ url('/') }}" class="n1">网站首页</a>
-            <a href="{{ url('cate', $field->cate_id) }}" class="n2">{{ $field->cate_name }}</a>
+            <a href="{{ url('category', $field->cate_id) }}" class="n2">{{ $field->cate_name }}</a>
         </h1>
         <div class="newblog left">
             @foreach($data as $d)
-            <h2>{{ $d->art_title }}</h2>
+                <a href="{{ url('article', $d->art_id) }}"><h2>{{ $d->art_title }}</h2></a>
             <p class="dateview"><span>发布时间：{{ date('Y-m-d', $d->art_time) }}</span><span>作者：{{ $d->art_editor }}</span></p>
             <figure><img src="{{ url($d->art_thumb) }}"></figure>
             <ul class="nlist">
                 <p>{{ $d->art_smalltext }}...</p>
-                <a title="{{ $d->art_title }}" href="{{ url('news/' . $d->art_id) }}" target="_blank" class="readmore">阅读全文>></a>
+                <a title="{{ $d->art_title }}" href="{{ url('article', $d->art_id) }}" target="_blank" class="readmore">阅读全文>></a>
             </ul>
             <div class="line"></div>
             @endforeach
@@ -46,7 +46,7 @@
             <div class="rnav">
                 <ul>
                     @foreach($submenu as $k => $s)
-                    <li class="rnav{{ $k + 1 }}"><a href="{{ url('cate/'.$s->cate_id) }}" target="_blank">{{ $s->cate_name }}</a></li>
+                    <li class="rnav{{ $k + 1 }}"><a href="{{ url('category', $s->cate_id) }}" target="_blank">{{ $s->cate_name }}</a></li>
                     @endforeach
                 </ul>
             </div>

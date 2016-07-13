@@ -3,6 +3,7 @@
 // 后台
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 
+    // 这里的命名空间只写了Admin,而不是 App\Http\Controllers\Admin ,是因为 App\Http\Controllers 在 routes.php中是默认命名空间.
     // 无需登录session验证
     Route::group([], function() {
         // 登录 - 路由路径是用户访问用的,别名是开发使用的。用别名的好处是如果访问路径修改了,但别名不需要改。就相当于给这个路径取的名字
@@ -58,8 +59,8 @@ Route::group(['namespace' => 'Home'], function() {
     Route::get('/', 'IndexController@index')->name('home.index');
 
     // 分类列表
-    Route::get('cate/{cate_id}', 'IndexController@cate')->name('home.cate');
+    Route::get('category/{cate_id}', 'IndexController@showCategoryList')->name('home.category');
 
     // 内容页
-    Route::get('news/{art_id}', 'IndexController@article')->name('home.news');
+    Route::get('article/{art_id}', 'IndexController@showArticleDetail')->name('home.article');
 });
