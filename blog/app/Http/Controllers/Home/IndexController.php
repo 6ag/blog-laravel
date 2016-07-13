@@ -58,7 +58,7 @@ class IndexController extends CommonController
 
         // 相关文章
         $data = Article::where('cate_id',$field->cate_id)->orderBy('art_id','desc')->take(6)->get();
-
+        
         return view('home.news', compact('field', 'article', 'data'));
     }
 }

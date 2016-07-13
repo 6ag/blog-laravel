@@ -1,9 +1,9 @@
 ﻿@extends('layouts.home')
 
 @section('info')
-    <title>{{Config::get('web.website_title')}} - {{Config::get('web.website_subtitle')}}</title>
-    <meta name="keywords" content="{{Config::get('web.website_keywords')}}" />
-    <meta name="description" content="{{Config::get('web.website_description')}}" />
+    <title>{{ config('web.website_title') }} - {{ config('web.website_subtitle') }}</title>
+    <meta name="keywords" content="{{ config('web.website_keywords') }}" />
+    <meta name="description" content="{{ config('web.website_description') }}" />
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
                 <p>为自己掘一个坟墓来葬心，红尘一梦，不再追寻。</p>
                 <p>加了锁的青春，不会再因谁而推开心门。</p>
             </ul>
-            <div class="avatar"><a href="#"><span>后盾</span></a> </div>
+            <div class="avatar"><a href="#"><span>六阿哥</span></a> </div>
         </section>
     </div>
     <div class="template">
@@ -24,7 +24,7 @@
             </h3>
             <ul>
                 @foreach($pics as $pic)
-                    <li><a href="{{url('news/' . $pic->art_id)}}"  target="_blank"><img src="{{url($pic->art_thumb)}}"></a><span>{{$pic->art_title}}</span></li>
+                    <li><a href="{{ url('news', $pic->art_id) }}"  target="_blank"><img src="{{ url($pic->art_thumb) }}"></a><span>{{ $pic->art_title }}</span></li>
                 @endforeach
             </ul>
         </div>
@@ -35,16 +35,16 @@
         </h2>
         <div class="bloglist left">
             @foreach($data as $d)
-                <h3>{{$d->art_title}}</h3>
-                <figure><img src="{{url($d->art_thumb)}}"></figure>
+                <a href="{{ url('news', $d->art_id) }}"><h3>{{ $d->art_title }}</h3></a>
+                <figure><img src="{{ url($d->art_thumb) }}"></figure>
                 <ul>
-                    <p>{{$d->art_smalltext}}...</p>
-                    <a title="{{$d->art_title}}" href="{{url('news/' . $d->art_id)}}" target="_blank" class="readmore">阅读全文>></a>
+                    <p>{{ $d->art_smalltext }}...</p>
+                    <a title="{{ $d->art_title }}" href="{{ url('news', $d->art_id) }}" target="_blank" class="readmore">阅读全文>></a>
                 </ul>
-                <p class="dateview"><span>{{date('Y-m-d', $d->art_time)}}</span><span>作者：{{$d->art_editor}}</span></p>
+                <p class="dateview"><span>{{ date('Y-m-d', $d->art_time) }}</span><span>作者：{{ $d->art_editor }}</span></p>
             @endforeach
             <div class="page">
-                {{$data->links()}}
+                {{ $data->links() }}
             </div>
         </div>
 
@@ -66,7 +66,7 @@
                 <ul class="website">
                     @if('$links')
                         @foreach($links as $v)
-                            <li><a href="{{$v->link_url}}">{{$v->link_name}}</a></li>
+                            <li><a href="{{ $v->link_url }}">{{ $v->link_name }}</a></li>
                         @endforeach
                     @endif
                 </ul>

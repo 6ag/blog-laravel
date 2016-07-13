@@ -19,12 +19,11 @@ class CommonController extends Controller
         View::share('navs',$navs);
 
         // 最新发布文章8篇
-        $new = Article::orderBy('art_time','desc')->take(8)->get();
+        $new = Article::orderBy('art_time', 'desc')->take(8)->get();
         View::share('new',$new);
-
+        
         // 点击量最高的6篇文章
-        $hot = Article::orderBy('art_view','desc')->take(5)->get();
+        $hot = Article::orderBy('art_view', 'desc')->take(5)->get();
         View::share('hot',$hot);
-
     }
 }
