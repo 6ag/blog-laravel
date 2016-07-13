@@ -6,7 +6,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
     // 无需登录session验证
     Route::group([], function() {
         // 登录 - 路由路径是用户访问用的,别名是开发使用的。用别名的好处是如果访问路径修改了,但别名不需要改。就相当于给这个路径取的名字
-        Route::any('login', 'LoginController@login')->name('admin.login.login');
+        Route::any('login', 'LoginController@login')->name('admin.login');
 
         // 验证码
         Route::get('code', 'LoginController@code')->name('admin.code');
