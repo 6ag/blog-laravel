@@ -22,9 +22,9 @@ class IndexController extends CommonController
         return view('admin.info');
     }
 
-    public function modifyPassword()
+    public function modifyPassword(Request $request)
     {
-        if ($input = Input::all()) {
+        if ($input = $request->all()) {
             $rules = [
                 'password' => 'required|between:6,20|confirmed',
             ];

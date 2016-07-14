@@ -59,7 +59,7 @@
 	<iframe src="{{url('admin/info')}}" frameborder="0" width="100%" height="100%" name="main"></iframe>
 </div>
 <!--主体部分 结束-->
-
+        
 <!--底部 开始-->
 <div class="bottom_box">
 	<p>CopyRight &copy; 2016 Powered by <a href="https://blog.6ag.cn" target="_blank">六阿哥</a></p>

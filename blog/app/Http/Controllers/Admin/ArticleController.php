@@ -32,7 +32,7 @@ class ArticleController extends CommonController
         $data = (new Category)->tree();
         return view('admin.article.add', compact('data'));
     }
-
+    
     // post admin/article 添加文章提交处理
     public function store()
     {
@@ -54,7 +54,7 @@ class ArticleController extends CommonController
             return back()->withErrors($validator);
         }
     }
-
+    
     // get admin/article/{article}/edit 编辑文章 edit、update也是一组连续的操作,edit获取需要编辑的数据的信息,update更新修改后的信息
     public function edit($art_id)
     {

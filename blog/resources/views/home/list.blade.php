@@ -1,65 +1,22 @@
-﻿@extends('layouts.home')
-
-@section('info')
-    <title>{{ $field->cate_name }} - {{ config('web.website_title') }}</title>
-    <meta name="keywords" content="{{ $field->cate_keywords }}" />
-    <meta name="description" content="{{ $field->cate_description }}" />
-@endsection
+@extends('layouts.home')
 
 @section('content')
-    <article class="blogs">
-        <h1 class="t_nav">
-            <span>{{ $field->cate_title }}</span>
-            <a href="{{ url('/') }}" class="n1">网站首页</a>
-            <a href="{{ url('category', $field->cate_id) }}" class="n2">{{ $field->cate_name }}</a>
-        </h1>
-        <div class="newblog left">
-            @foreach($data as $d)
-                <a href="{{ url('article', $d->art_id) }}"><h2>{{ $d->art_title }}</h2></a>
-            <p class="dateview"><span>发布时间：{{ date('Y-m-d', $d->art_time) }}</span><span>作者：{{ $d->art_editor }}</span></p>
-            <figure><img src="{{ url($d->art_thumb) }}"></figure>
-            <ul class="nlist">
-                <p>{{ $d->art_smalltext }}...</p>
-                <a title="{{ $d->art_title }}" href="{{ url('article', $d->art_id) }}" target="_blank" class="readmore">阅读全文>></a>
-            </ul>
-            <div class="line"></div>
-            @endforeach
+    <div id="main">
 
-            <div class="blank"></div>
-            <div class="ad">
-                <img src="{{ asset('home/images/ad.png') }}">
-            </div>
-            <div class="page">
-                {{ $data->links() }}
-            </div>
-        </div>
-        <aside class="right">
-            <!-- Baidu Button BEGIN -->
-            <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"><a class="bds_tsina"></a><a class="bds_qzone"></a><a class="bds_tqq"></a><a class="bds_renren"></a><span class="bds_more"></span><a class="shareCount"></a></div>
-            <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6574585" ></script>
-            <script type="text/javascript" id="bdshell_js"></script>
-            <script type="text/javascript">
-                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
-            </script>
-            <!-- Baidu Button END -->
+        @foreach($articleList as $article)
+            <section class="post" itemscope itemprop="blogitem">
+                <a href="{{ url('article', $article->art_id) }}" title="{{ $article->art_title }}" itemprop="url">
+                    <h1 itemprop="name">{{ $article->art_title }}</h1>
+                    <p itemprop="description" >{{ $article->art_smalltext }}</p>
+                    <time datetime="{{ date('Y-m-d', $article->art_time) }}" itemprop="datePublished">{{ date('Y-m-d', $article->art_time) }}</time>
+                </a>
+            </section>
+        @endforeach
 
-            <div class="rnav">
-                <ul>
-                    @foreach($submenu as $k => $s)
-                    <li class="rnav{{ $k + 1 }}"><a href="{{ url('category', $s->cate_id) }}" target="_blank">{{ $s->cate_name }}</a></li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="news">
-                @parent
-            </div>
-            <div class="visitors">
-                <h3><p>最近访客</p></h3>
-                <ul>
+        <nav id="page-nav" class="clearfix unexpand">
+            {{ $articleList->links() }}
+            {{--<span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>--}}
+        </nav>
 
-                </ul>
-            </div>
-
-        </aside>
-    </article>
+    </div>
 @endsection
