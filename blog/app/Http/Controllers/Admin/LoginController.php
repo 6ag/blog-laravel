@@ -41,6 +41,6 @@ class LoginController extends CommonController
     public function logout()
     {
         session(['user' => null]);
-        return redirect()->route('admin.login');
+        return redirect()->route('home.index');
     }
 }

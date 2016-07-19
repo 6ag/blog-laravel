@@ -42,9 +42,8 @@
             <table class="add_tab">
                 <tbody>
                 <tr>
-                    <th width="120"><i class="require">*</i>文章分类：</th>
                     <td>
-                        <select name="cate_id">
+                        <select name="cate_id" class="form-control">
                             @foreach($data as $v)
                                 <option value="{{ $v->cate_id }}">{{ $v->_cate_name }}</option>
                             @endforeach
@@ -52,21 +51,18 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i>文章标题：</th>
                     <td>
-                        <input type="text" class="lg" name="art_title">
+                        <input type="text" class="lg" name="art_title" placeholder="文章标题">
                     </td>
                 </tr>
                 <tr>
-                    <th>作者：</th>
                     <td>
-                        <input type="text" name="art_editor">
+                        <input type="text" name="art_editor" placeholder="作者">
                     </td>
                 </tr>
                 <tr>
-                    <th rowspan="2">缩略图：</th>
                     <td>
-                        <input type="text" size="50" name="art_thumb">
+                        <input type="text" size="50" name="art_thumb" placeholder="缩略图">
                         <input id="file_upload" name="file_upload" type="file" multiple="true">
                         <script src="{{ url('org/uploadify/jquery.uploadify.min.js') }}" type="text/javascript"></script>
                         <link rel="stylesheet" type="text/css" href="{{ url('org/uploadify/uploadify.css') }}">
@@ -101,44 +97,58 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>文章关键词：</th>
                     <td>
-                        <input type="text" class="lg" name="art_tag">
+                        <input type="text" class="lg" name="art_tag" placeholder="文章关键词 多个以 , 分割">
                     </td>
                 </tr>
                 <tr>
-                    <th>SEO关键词：</th>
                     <td>
-                        <input type="text" class="lg" name="art_keywords">
+                        <textarea name="art_smalltext" placeholder="文章简介"></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <th>SEO描述：</th>
                     <td>
-                        <textarea name="art_description"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th>文章简介：</th>
-                    <td>
-                        <textarea name="art_smalltext"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th rowspan="2"><i class="require">*</i>文章内容：</th>
-                    <td>
-                        <style>
-                            .edui-default{line-height: 28px;}
-                            div.edui-combox-body,div.edui-button-body,div.edui-splitbutton-body
-                            {overflow: hidden; height:20px;}
-                            div.edui-box{overflow: hidden; height:22px;}
-                        </style>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/ueditor.config.js')}}"></script>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/ueditor.all.min.js')}}"> </script>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
-                        <script id="editor" name="art_newstext" type="text/plain" style="width:100%; height:400px;"></script>
+                        <link rel="stylesheet" href="{{ url('org/editor/css/editormd.min.css') }}" />
+                        <div id="editormd">
+                            <textarea name="art_newstext" style="display:none;"></textarea>
+                        </div>
+                        <script src="{{ url('org/editor/editormd.min.js') }}"></script>
                         <script type="text/javascript">
-                            var ue = UE.getEditor('editor');
+                            $(function() {
+                                var testEditor;
+
+                                $.get('test.md', function(md){
+                                    testEditor = editormd("editormd", {
+                                        width: "100%",
+                                        height: 700,
+                                        path : "{{ url('org/editor/lib').'/' }}",
+                                        markdown : md,
+                                        codeFold : true,
+                                        saveHTMLToTextarea : true,
+                                        searchReplace : true,
+                                        htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+                                        //toolbar  : false,             //关闭工具栏
+                                        emoji : true,
+                                        taskList : true,
+                                        tocm            : true,         // Using [TOCM]
+                                        tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                                        flowChart : true,             // 开启流程图支持，默认关闭
+                                        sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+                                        //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                                        //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                                        //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                                        //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                                        //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                                        imageUpload : true,
+                                        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                        imageUploadURL : "./php/upload.php",
+                                        onload : function() {
+//                                            console.log('onload', this);
+                                        }
+                                    });
+                                });
+
+                            });
                         </script>
                     </td>
                 </tr>

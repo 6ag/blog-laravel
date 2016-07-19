@@ -36,7 +36,7 @@ class ArticleController extends CommonController
     // post admin/article 添加文章提交处理
     public function store()
     {
-        $input = Input::except('_token');
+        $input = Input::except('_token', 'editormd-html-code');
         $input['art_time'] = time();
         $rules = [
             'art_title' => 'required',
