@@ -9,7 +9,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends CommonController
+class CategoryController extends BaseController
 {
     // get admin/category  全部分类列表
     public function index()

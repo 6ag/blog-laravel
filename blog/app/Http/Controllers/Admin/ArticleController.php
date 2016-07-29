@@ -11,7 +11,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class ArticleController extends CommonController
+class ArticleController extends BaseController
 {
     // get admin/article  全部文章列表
     public function index()

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class LinksTableSeeder extends Seeder
 {
@@ -11,21 +12,19 @@ class LinksTableSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
+        DB::table('links')->insert([
             [
-                'link_name' => '六阿哥博客',
-                'link_title' => '一个iOS技术博客',
-                'link_url' => 'https://blog.6ag.cn/',
-                'link_order' => 1,
-            ],
-            [
-                'link_name' => '六阿哥网',
-                'link_title' => '一个资讯网站',
-                'link_url' => 'http://www.6ag.cn/',
-                'link_order' => 2,
-            ],
-        ];
+                'name' => '六阿哥博客',
+                'title' => '一个iOS技术博客',
+                'url' => 'https://blog.6ag.cn/',
+                'order' => 1,
+            ], [
+                'name' => '六阿哥网',
+                'title' => '一个资讯网站',
+                'url' => 'http://www.6ag.cn/',
+                'order' => 2,
+            ]
+        ]);
 
-        \Illuminate\Support\Facades\DB::table('links')->insert($data);
     }
 }

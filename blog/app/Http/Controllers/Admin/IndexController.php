@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class IndexController extends CommonController
+class IndexController extends BaseController
 {
     public function index()
     {

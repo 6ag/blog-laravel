@@ -9,7 +9,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class NavsController extends CommonController
+class NavsController extends BaseController
 {
     // get admin/navs/{navs} 显示单个导航信息
     public function show()

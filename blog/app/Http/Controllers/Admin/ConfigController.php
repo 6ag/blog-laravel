@@ -10,7 +10,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class ConfigController extends CommonController
+class ConfigController extends BaseController
 {
     // get admin/config/{config} 显示单个配置项信息
     public function show()

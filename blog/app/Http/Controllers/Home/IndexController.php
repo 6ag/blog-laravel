@@ -48,7 +48,7 @@ class IndexController extends BaseController
         // 文章上一篇 下一篇
         $currentArticle['pre'] = Article::where('art_id', '<', $art_id)->orderBy('art_id','desc')->first();
         $currentArticle['next'] = Article::where('art_id', '>', $art_id)->orderBy('art_id','asc')->first();
-
+        
         // 相关文章
         $data = Article::where('cate_id',$currentArticle->cate_id)->orderBy('art_id','desc')->take(6)->get();
 

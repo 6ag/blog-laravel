@@ -3,14 +3,9 @@
 // 后台
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 
-    // 这里的命名空间只写了Admin,而不是 App\Http\Controllers\Admin ,是因为 App\Http\Controllers 在 routes.php中是默认命名空间.
     // 无需登录session验证
     Route::group([], function() {
-        // 登录 - 路由路径是用户访问用的,别名是开发使用的。用别名的好处是如果访问路径修改了,但别名不需要改。就相当于给这个路径取的名字
-        Route::any('login', 'LoginController@login')->name('admin.login');
-
-        // 验证码
-        Route::get('code', 'LoginController@code')->name('admin.code');
+        Route::any('login', 'AuthenticateController@login')->name('admin.login');
     });
 
     // 需要登录session验证
